@@ -1,0 +1,49 @@
+<div class="bar bar-subheader bar-calm">
+  <h1 class="subtitle">Jobs Available</h1>
+</div>
+<ion-view class="jobs">
+  <ion-content scroll="false"
+               class="has-header has-subheader">
+    <div class="card">
+      <div class="item">
+        <div class="main-info">
+          <img src="{{ currentJob.company.logo }}">
+          <div class="info">
+            <span class="title">{{ currentJob.title }}</span>
+            <span class="company">{{ currentJob.company.name }}</span>
+            <span class="salary">${{ currentJob.wagePerHourInCents/100 | number:2 }}/hour</span>
+            <span class="duration">{{ formatDate(currentJob.shifts[0].startDate) }} - {{ formatDate(currentJob.shifts[currentJob.shifts.length - 1].startDate) }}</span>
+          </div>
+        </div>
+        <div class="shifts-info">
+          <div class="info">
+            <span class="agreement">If you take this job you are agreeing to work {{ countWorkingDays(currentJob.shifts) }}.</span>
+            <table class="table">
+              <tr ng-repeat="shift in currentJob.shifts | filter:firstWeekShifts">
+                <td>{{ getDay(shift.startDate) }},&nbsp;</td>
+                <td>{{ getDate(shift.startDate) }}&nbsp;</td>
+                <td>{{ getTime(shift.startDate) }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="location-info">
+          <div class="info">
+            <div class="label">Location</div>
+            <div class="location"><a href="https://www.google.com.au/maps/search/{{ currentJob.company.address }}">{{ currentJob.company.address }}</a></div>
+          </div>
+        </div>
+        <div class="branch-info">
+          <div class="info">
+            <div class="label">Branch</div>
+            <div class="branch">{{ currentJob.branch }}</div>
+            <div class="phone"><a href="tel:{{ currentJob.branchPhoneNumber }}">{{ currentJob.branchPhoneNumber }}</a></div>
+          </div>
+        </div>
+        <div class="buttons">
+          <div class="button">NO THANKS</div>
+          <div class="button">I'LL TAKE IT</div>
+        </div>
+      </div>
+  </ion-content>
+</ion-view>
